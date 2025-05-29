@@ -1,7 +1,7 @@
 displayName: TEST Badger headers
 type: middleware
 
-import: github.com/pyrho/badger-headers
+import: github.com/pyrho/badgerheaders
 
 summary: Testing adding headers to badger
 
