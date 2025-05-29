@@ -201,6 +201,7 @@ func (p *Badger) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	if result.Data.CustomHeader != nil {
 		rw.Header().Add("X-CUSTOM-HEADER", *result.Data.CustomHeader)
 	}
+	rw.Header().Add("X-25TEST-HEADER", "yep")
 
 	if result.Data.RedirectURL != nil && *result.Data.RedirectURL != "" {
 		fmt.Println("Badger: Redirecting to", *result.Data.RedirectURL)
