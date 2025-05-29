@@ -40,7 +40,7 @@ type VerifyResponse struct {
 	Data struct {
 		Valid           bool              `json:"valid"`
 		RedirectURL     *string           `json:"redirectUrl"`
-		CustomHeader     *string           `json:"customHeader"`
+		CustomHeader     *string           `json:"customHeader,omitempty"`
 		ResponseHeaders map[string]string `json:"responseHeaders,omitempty"`
 	} `json:"data"`
 }
