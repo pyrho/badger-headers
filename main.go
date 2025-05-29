@@ -40,7 +40,7 @@ type VerifyResponse struct {
 	Data struct {
 		Valid           bool              `json:"valid"`
 		RedirectURL     *string           `json:"redirectUrl"`
-		CustomHeader     *string           `json:"customHeader,omitempty"`
+		CustomHeader    *string           `json:"customHeader,omitempty"`
 		ResponseHeaders map[string]string `json:"responseHeaders,omitempty"`
 	} `json:"data"`
 }
@@ -201,8 +201,6 @@ func (p *Badger) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	if result.Data.CustomHeader != nil {
 		rw.Header().Add("X-CUSTOM-HEADER", *result.Data.CustomHeader)
 	}
-	fmt.Println("Badger: Added test header")
-	rw.Header().Add("X-25TEST-HEADER", "yep")
 
 	if result.Data.RedirectURL != nil && *result.Data.RedirectURL != "" {
 		fmt.Println("Badger: Redirecting to", *result.Data.RedirectURL)
@@ -212,6 +210,9 @@ func (p *Badger) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 
 	if result.Data.Valid {
 		fmt.Println("Badger: Valid session")
+		fmt.Println("Badger: Added test header")
+		req.Header.Add("X-25TEST-HEADER", "yep")
+		rw.Header().Add("X-25TEST-HEADER", "yep")
 		p.next.ServeHTTP(rw, req)
 		return
 	}
