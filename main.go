@@ -192,12 +192,14 @@ func (p *Badger) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	//rw.Header().Add("X-CUSTOM-HEADER", *result.Data.CustomHeader)
-
 	if result.Data.ResponseHeaders != nil {
 		for key, value := range result.Data.ResponseHeaders {
 			rw.Header().Add(key, value)
 		}
+	}
+
+	if result.Data.CustomHeader != nil {
+		rw.Header().Add("X-CUSTOM-HEADER", *result.Data.CustomHeader)
 	}
 
 	if result.Data.RedirectURL != nil && *result.Data.RedirectURL != "" {
