@@ -199,7 +199,7 @@ func (p *Badger) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	if result.Data.CustomHeader != nil {
-		rw.Header().Add("X-CUSTOM-HEADER", *result.Data.CustomHeader)
+		req.Header.Add("Remote-User", *result.Data.CustomHeader)
 	}
 
 	if result.Data.RedirectURL != nil && *result.Data.RedirectURL != "" {
@@ -210,9 +210,6 @@ func (p *Badger) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 
 	if result.Data.Valid {
 		fmt.Println("Badger: Valid session")
-		fmt.Println("Badger: Added test header")
-		req.Header.Add("X-25TEST-HEADER", "yep")
-		rw.Header().Add("X-25TEST-HEADER", "yep")
 		p.next.ServeHTTP(rw, req)
 		return
 	}
